@@ -11,4 +11,33 @@ fun main() {
         // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
         println("i = $i")
     }
+
+    val yes: Boolean = true // better practice, code more readable
+    val no = false
+    val alsoTrue = !(1 == 2) // evaluates to not false or true
+
+    println("alsoTrue = $alsoTrue")
+
+    val andTrue = 1 < 2 && 4 > 3 // both true
+    println("andTrue = $andTrue") // true
+    val andFalse = 1 < 2 && 3 > 4 // one true one false
+    println("andFalse = $andFalse") // false
+    val orTrue = 1 < 2 || 3 > 4 //one true one false
+    println("orTrue = $orTrue") // true
+    val orFalse = 1 == 2 || 3 == 4 // both false
+    println("orFalse = $orFalse") // false
+
+    var sum: Int = 1
+
+    while (true) {
+        sum = sum + (sum + 1)
+        println("sum = $sum")
+        if (sum >= 100) {
+            break
+        }
+    }
+
+
+
+
 }
