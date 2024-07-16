@@ -47,8 +47,18 @@ fun main() {
 
     println("Final total = $total" )
 
+    printMyName("Daffy Duck")
+    printMyName()
 
+    println(fullName("Daffy", "Duck"))
 
+}
 
+fun printMyName(name: String = "Bugs Bunny") {
+    println("My name is $name.")
+}
 
+fun fullName(firstName: String = "Bugs", lastName: String = "Bunny"): String
+{
+    return firstName + " " +  lastName
 }
