@@ -37,6 +37,17 @@ fun main() {
         }
     }
 
+    val count = 10
+
+    var total: Int = 0
+    for (i in 1..count) {
+        total += i // equivalent to total = total + i
+        println("total = $total" )
+    }
+
+    println("Final total = $total" )
+
+
 
 
 
