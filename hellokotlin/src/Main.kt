@@ -102,6 +102,39 @@ fun main() {
 
     println(mustHaveResult)
 
+    val innerPlanets = listOf("Mercury", "Venus", "Earth", "Mars")
+
+    val testList = listOf("Mercury", 5, 6.0, "Mars")
+
+    val testArray = arrayOf("Mercury", 5, 6.0, "Mars")
+
+    val players = mutableListOf("Alice", "Bob", "Cindy", "Dan")
+
+    println(players.isEmpty())
+// > false
+    var currentPlayer = players.first()
+    println(currentPlayer) // > Alice
+
+    currentPlayer = players[1]
+    println(currentPlayer) // > Alice
+
+    println(players)
+
+    players.forEach { player ->
+        println(player)
+    }
+
+    val upcomingPlayersSlice = players.slice(1..2)
+    println(upcomingPlayersSlice.joinToString()) // > Bob, Cindy
+
+    players.add("Eli")
+    players.forEach { player ->
+        println(player)
+    }
+
+
+
+
 
 }
 
