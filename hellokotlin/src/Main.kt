@@ -52,6 +52,57 @@ fun main() {
 
     println(fullName("Daffy", "Duck"))
 
+    var result: Int? = 30
+    println(result)
+
+    var nullableResult: Int?
+    var nonNullableResult: Int = 0
+
+    if (result != null)
+    {
+        nonNullableResult = result
+    }
+    else
+    {
+        nullableResult = result
+    }
+
+    println(nonNullableResult + 1)
+
+    var authorName: String? = "Joe Howard"
+    var authorAge: Int? = 24
+
+    var nonNullableAuthor: String
+    var nullableAuthor: String?
+
+    if (authorName != null) {
+        nonNullableAuthor = authorName
+    } else {
+        nullableAuthor = authorName
+    }
+
+    var nameLength = authorName?.length
+    println("Author's name has length $nameLength.")
+// > Author's name has length 10.
+
+    val nameLengthPlus5 = authorName?.length?.plus(5)
+    println("Author's name length plus 5 is $nameLengthPlus5.")
+// > Author's name length plus 5 is 15.
+
+    authorName?.let {
+        nonNullableAuthor = authorName
+    }
+
+    authorName?.let {
+        nameLength = authorName.length
+    }
+
+    var nullableInt: Int? = 10
+    var mustHaveResult = nullableInt ?: 0
+
+    println(mustHaveResult)
+
+
 }
 
 fun printMyName(name: String = "Bugs Bunny") {
