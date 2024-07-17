@@ -132,6 +132,33 @@ fun main() {
         println(player)
     }
 
+    var yearOfBirth = mapOf(
+        "Anna" to 1990,
+        "Brian" to 1991,
+        "Craig" to 1992,
+        "Donna" to 1993
+    )
+
+    var namesAndScores = mutableMapOf(
+        "Anna" to 2,
+        "Brian" to 2,
+        "Craig" to 8,
+        "Donna" to 6
+    )
+    println(namesAndScores) // > {Anna=2, Brian=2, Craig=8, Donna=6}
+
+    val bobData = mutableMapOf(
+        "name" to "Bob",
+        "profession" to "CardPlayer",
+        "country" to "USA"
+    )
+
+    bobData.put("state", "CA")
+
+    bobData["city"] = "San Francisco"
+
+    println(bobData)
+
 
 
 
