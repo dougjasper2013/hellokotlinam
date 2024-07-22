@@ -42,10 +42,10 @@ fun main() {
     var total: Int = 0
     for (i in 1..count) {
         total += i // equivalent to total = total + i
-        println("total = $total" )
+        println("total = $total")
     }
 
-    println("Final total = $total" )
+    println("Final total = $total")
 
     printMyName("Daffy Duck")
     printMyName()
@@ -58,12 +58,9 @@ fun main() {
     var nullableResult: Int?
     var nonNullableResult: Int = 0
 
-    if (result != null)
-    {
+    if (result != null) {
         nonNullableResult = result
-    }
-    else
-    {
+    } else {
         nullableResult = result
     }
 
@@ -159,12 +156,50 @@ fun main() {
 
     println(bobData)
 
+    val john = Person(firstName = "Johnny", lastName = "Appleseed")
 
+    println(john.fullName) // > Johnny Appleseed
 
+    var var1 = SimplePerson(name = "John")
+    println(var1.name)
+
+    var var2 = var1
+    println(var2.name)
+
+    var2.set("Jane")
+    println(var1.name)
+
+    var homeOwner = john
+    john.firstName = "John"
+
+    println(john.firstName)      // > John
+    println(homeOwner.firstName) // > John
+
+    println(homeOwner === john) // > true
+
+    val impostorJohn = Person(firstName = "John", lastName = "Appleseed")
+
+    println(john === homeOwner) // true
+    println(john === impostorJohn) // false
+    println(impostorJohn === homeOwner)
+
+    val jane = Student(firstName = "Jane", lastName = "Appleseed")
+    val history = Grade(letter = "B", points = 9.0, credits = 3.0)
+    var math = Grade(letter = "A", points = 16.0, credits = 4.0)
+
+    jane.recordGrade(history)
+    jane.recordGrade(math)
+
+    var gradeList = ""
+    for (grade in jane.grades)
+    {
+        gradeList += grade.letter + " "
+    }
+
+    println(gradeList)
 
 
 }
-
 fun printMyName(name: String = "Bugs Bunny") {
     println("My name is $name.")
 }
@@ -173,3 +208,36 @@ fun fullName(firstName: String = "Bugs", lastName: String = "Bunny"): String
 {
     return firstName + " " +  lastName
 }
+
+class Person(var firstName: String, var lastName: String) {
+    val fullName
+        get() = "$firstName $lastName"
+}
+
+class SimplePerson(var name: String)
+{
+    fun set(n: String)
+    {
+        name = n
+    }
+}
+
+class Grade(
+    val letter: String,
+    val points: Double,
+    val credits: Double
+)
+
+class Student(
+    val firstName: String,
+    val lastName: String,
+    val grades: MutableList<Grade> = mutableListOf(),
+    var credits: Double = 0.0
+) {
+
+    fun recordGrade(grade: Grade) {
+        grades.add(grade)
+        credits += grade.credits
+    }
+}
+
