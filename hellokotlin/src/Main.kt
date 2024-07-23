@@ -1,5 +1,18 @@
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+enum class DayOfTheWeek {
+    // more code goes here
+    Sunday,
+    Monday,
+    Tuesday,
+    Wednesday,
+    Thursday,
+    Friday,
+    Saturday
+
+}
+
+
 fun main() {
     val name = "Kotlin"
     //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
@@ -242,6 +255,24 @@ fun main() {
     dom.recordGrade(chemistry)
     println(dom.isEligible) // > false
 
+    for (day in DayOfTheWeek.values()) {
+        println("Day ${day.ordinal + 1}: ${day.name}")
+    }
+
+    val dayIndex = 0
+    val dayAtIndex = DayOfTheWeek.values()[dayIndex]
+    println("Day at $dayIndex is $dayAtIndex")
+
+    var uni = Unicycle()
+
+    println(uni.peddling)
+
+    uni.accelerate()
+    println(uni.peddling)
+
+    uni.stop()
+    println(uni.peddling)
+
 }
 fun printMyName(name: String = "Bugs Bunny") {
     println("My name is $name.")
@@ -327,6 +358,25 @@ class StudentAthlete(
     val isEligible: Boolean
         get() = failedClasses.size < 3
 }
+
+interface Vehicle {
+    fun accelerate()
+    fun stop()
+}
+
+
+class Unicycle: Vehicle {
+    var peddling = false
+
+    override fun accelerate() {
+        peddling = true
+    }
+
+    override fun stop() {
+        peddling = false
+    }
+}
+
 
 
 
