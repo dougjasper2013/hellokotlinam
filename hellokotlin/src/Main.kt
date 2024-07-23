@@ -158,7 +158,7 @@ fun main() {
 
     val john = Person(firstName = "Johnny", lastName = "Appleseed")
 
-    println(john.fullName) // > Johnny Appleseed
+    //println(john.fullName) // > Johnny Appleseed
 
     var var1 = SimplePerson(name = "John")
     println(var1.name)
@@ -184,11 +184,11 @@ fun main() {
     println(impostorJohn === homeOwner)
 
     val jane = Student(firstName = "Jane", lastName = "Appleseed")
-    val history = Grade(letter = "B", points = 9.0, credits = 3.0)
-    var math = Grade(letter = "A", points = 16.0, credits = 4.0)
+    //val history = Grade(letter = "B", points = 9.0, credits = 3.0)
+    //var math = Grade(letter = "A", points = 16.0, credits = 4.0)
 
-    jane.recordGrade(history)
-    jane.recordGrade(math)
+    //jane.recordGrade(history)
+    //jane.recordGrade(math)
 
     var gradeList = ""
     for (grade in jane.grades)
@@ -198,6 +198,49 @@ fun main() {
 
     println(gradeList)
 
+    val john1 = Person(firstName = "Johnny", lastName = "Appleseed")
+    val jane1 = Student(firstName = "Jane", lastName = "Appleseed")
+
+    println(john1.fullName()) // Johnny Appleseed
+    println(jane1.fullName()) // Jane Appleseed
+
+    val history = Grade(letter = "B", points = 9.0, credits = 3.0)
+    jane1.recordGrade(history)
+ // john1.recordGrade(history) // john is not a student!
+
+    val person = Person(
+        firstName = "Johnny",
+        lastName = "Appleseed"
+    )
+    val oboePlayer = OboePlayer(
+        firstName = "Jane",
+        lastName = "Appleseed"
+    )
+
+    println(person.phonebookName(person))     // Appleseed, Johnny
+    println(oboePlayer.phonebookName(oboePlayer)) // Appleseed, Jane
+
+    var hallMonitor =
+        Student(firstName = "Jill", lastName = "Bananapeel")
+    hallMonitor = oboePlayer
+
+    println(hallMonitor.minimumPracticeTime) // Error!
+
+    println(oboePlayer.afterClassActivity(oboePlayer)) // Goes to practice!
+    println(oboePlayer.afterClassActivity(oboePlayer as Student)) // Goes home!
+
+    val math = Grade(letter = "B", points = 9.0, credits = 3.0)
+    val science = Grade(letter = "F", points = 9.0, credits = 3.0)
+    val physics = Grade(letter = "F", points = 9.0, credits = 3.0)
+    val chemistry = Grade(letter = "F", points = 9.0, credits = 3.0)
+
+    val dom = StudentAthlete(firstName = "Dom", lastName = "Grady")
+    dom.recordGrade(math)
+    dom.recordGrade(science)
+    dom.recordGrade(physics)
+    println(dom.isEligible) // > true
+    dom.recordGrade(chemistry)
+    println(dom.isEligible) // > false
 
 }
 fun printMyName(name: String = "Bugs Bunny") {
@@ -209,9 +252,12 @@ fun fullName(firstName: String = "Bugs", lastName: String = "Bunny"): String
     return firstName + " " +  lastName
 }
 
-class Person(var firstName: String, var lastName: String) {
-    val fullName
-        get() = "$firstName $lastName"
+// 1
+open class Person(var firstName: String, var lastName: String) {
+    fun fullName() = "$firstName $lastName"
+    fun phonebookName(person: Person): String {
+        return "${person.lastName}, ${person.firstName}"
+    }
 }
 
 class SimplePerson(var name: String)
@@ -228,18 +274,60 @@ class Grade(
     val credits: Double
 )
 
-class Student(
-    val firstName: String,
-    val lastName: String,
-    val grades: MutableList<Grade> = mutableListOf(),
-    var credits: Double = 0.0
-) {
+// 2
+open class Student(
+    firstName: String,
+    lastName: String,
+    var grades: MutableList<Grade> = mutableListOf<Grade>()
+) : Person(firstName, lastName) {
 
-    fun recordGrade(grade: Grade) {
+    open fun recordGrade(grade: Grade) {
         grades.add(grade)
-        credits += grade.credits
+    }
+    fun afterClassActivity(student: Student): String {
+        return "Goes home!"
+    }
+
+}
+
+open class BandMember(
+    firstName: String,
+    lastName: String
+) : Student(firstName, lastName) {
+    open val minimumPracticeTime: Int
+        get() { return  2 }
+    fun afterClassActivity(student: BandMember): String {
+        return "Goes to practice!"
     }
 }
+
+class OboePlayer(
+    firstName: String,
+    lastName: String
+): BandMember(firstName, lastName) {
+    // This is an example of an override, will be covered soon.
+    override val minimumPracticeTime: Int =
+        super.minimumPracticeTime * 2
+}
+
+class StudentAthlete(
+    firstName: String,
+    lastName: String
+): Student(firstName, lastName) {
+    val failedClasses = mutableListOf<Grade>()
+
+    override fun recordGrade(grade: Grade) {
+        super.recordGrade(grade)
+
+        if (grade.letter == "F") {
+            failedClasses.add(grade)
+        }
+    }
+
+    val isEligible: Boolean
+        get() = failedClasses.size < 3
+}
+
 
 
 
