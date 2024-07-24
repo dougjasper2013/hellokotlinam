@@ -1,3 +1,5 @@
+import kotlin.collections.List
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 enum class DayOfTheWeek {
@@ -12,6 +14,10 @@ enum class DayOfTheWeek {
 
 }
 
+fun List<String>.toBulletedList(): String {
+    val separator = "\n - "
+    return this.map { "$it" }.joinToString(separator, prefix = separator, postfix = "\n")
+}
 
 fun main() {
     val name = "Kotlin"
@@ -273,6 +279,34 @@ fun main() {
     uni.stop()
     println(uni.peddling)
 
+    var garfield = Cat("Mammal", "Tabby", 9)
+    var odie = Dog("Mammal", "Beagle")
+
+    garfield.makeNoise()
+    odie.makeNoise()
+
+    val names: List<String> = listOf("Bob", "Carol", "Ted", "Alice")
+    println("Names: $names")
+    val firstName = names.first()
+    println(firstName)
+
+    val map = mapOf(
+        Pair("one", 1),
+        Pair("two", "II"),
+        Pair("three", 3.0f)
+    )
+
+    val one = map["one"]
+    println(one)
+
+    val valuesForKeysWithE = map.keys
+        .filter { it.contains("e") }
+        .map { "Value for $it: ${map[it]}" }
+    println("Values for keys with E: $valuesForKeysWithE")
+
+    println("Names: ${names.toBulletedList()}")
+
+
 }
 fun printMyName(name: String = "Bugs Bunny") {
     println("My name is $name.")
@@ -376,6 +410,38 @@ class Unicycle: Vehicle {
         peddling = false
     }
 }
+
+
+open class Animal(
+    type: String
+)  {
+
+    open fun makeNoise()
+    {
+        println("Animal noise")
+    }
+}
+
+open class Dog(type: String, breed: String)
+    : Animal(type)
+{
+    override fun makeNoise()
+    {
+        println("Woof, Woof, Woof")
+    }
+}
+
+open class Cat(type: String, breed: String, lives: Int)
+    : Animal(type)
+{
+    override fun makeNoise()
+    {
+        println("Meow")
+    }
+}
+
+interface List<out E> : Collection<E>
+
 
 
 
